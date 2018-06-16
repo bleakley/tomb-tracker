@@ -1,6 +1,6 @@
 {
-  "name": "react-static-example-basic",
-  "version": "1.0.1",
+  "name": "tomb-tracker",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "bootstrap": "^3.3.7",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.4.1",
     "react-hot-loader": "^4.0.0-beta.21",
     "react-router": "^4.2.0",
+    "react-sortable-hoc": "^0.8.3",
     "react-static": "^5.9.7"
   },
   "devDependencies": {

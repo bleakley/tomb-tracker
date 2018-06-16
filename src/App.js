@@ -5,6 +5,7 @@ import { hot } from 'react-hot-loader'
 import Routes from 'react-static-routes'
 
 import './app.css'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => (
   <Router>
@@ -13,6 +14,7 @@ const App = () => (
         <Link exact to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/blog">Blog</Link>
+        <Link to="/tracker">Tracker</Link>
       </nav>
       <div className="content">
         <Routes />

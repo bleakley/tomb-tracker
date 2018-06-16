@@ -16,6 +16,10 @@ export default {
         component: 'src/containers/About',
       },
       {
+        path: '/tracker',
+        component: 'src/containers/Tracker',
+      },
+      {
         path: '/blog',
         component: 'src/containers/Blog',
         getData: () => ({
