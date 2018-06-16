@@ -3,15 +3,15 @@ import { Form, FormGroup, FormControl, Col, ControlLabel, Panel, Button, ListGro
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import PartyMemberRow from './PartyMemberRow'
 
-const SortablePartyMember = SortableElement(({value, sortIndex}) =>
-  <PartyMemberRow character={value} navigating={sortIndex==0} />
+const SortablePartyMember = SortableElement(({value, sortIndex, save, remove}) =>
+  <PartyMemberRow character={value} navigating={sortIndex==0} index={sortIndex} save={save} remove={remove} />
 );
 
-const SortablePartyMemberList = SortableContainer(({items}) => {
+const SortablePartyMemberList = SortableContainer(({items, save, remove}) => {
   return (
     <ListGroup>
       {items.map((value, index) => (
-        <SortablePartyMember key={`item-${index}`} index={index} value={value} sortIndex={index} />
+        <SortablePartyMember key={`item-${index}`} index={index} value={value} sortIndex={index} save={save} remove={() => remove(index)} />
       ))}
     </ListGroup>
   );
@@ -25,6 +25,9 @@ class Tracker extends React.Component {
       characters: [{ name: 'me'}, { name: 'you'}],
       day: 1
    };
+
+   this.savePartyMember = this.savePartyMember.bind(this);
+   this.deletePartyMember = this.deletePartyMember.bind(this);
   }
 
   onPartySortEnd = ({oldIndex, newIndex}) => {
@@ -32,6 +35,24 @@ class Tracker extends React.Component {
       characters: arrayMove(this.state.characters, oldIndex, newIndex),
     });
   };
+
+  savePartyMember(index, character) {
+    let newCharacters = this.state.characters;
+    newCharacters[index] = character;
+    this.setState({
+      characters: newCharacters
+    });
+
+    console.log('saving ' + index);
+    console.log(character);
+  }
+
+  deletePartyMember(index) {
+    console.log('deleting ' + index);
+    this.setState({
+      characters: this.state.characters.slice(0, index).concat(this.state.characters.slice(index + 1))
+    });
+  }
 
   render() {
     return (
@@ -58,7 +79,7 @@ class Tracker extends React.Component {
           <Panel.Title componentClass="h3">Your Party</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          <SortablePartyMemberList items={this.state.characters} onSortEnd={this.onPartySortEnd.bind(this)} />
+          <SortablePartyMemberList items={this.state.characters} onSortEnd={this.onPartySortEnd.bind(this)} save={this.savePartyMember} remove={this.deletePartyMember} />
           <Button onClick={() => this.setState({characters: this.state.characters.concat([{name: 'new'}])}) }>+</Button>
         </Panel.Body>
       </Panel>

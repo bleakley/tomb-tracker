@@ -7,6 +7,5 @@ import Tracker from '../components/Tracker'
 export default () => (
   <div>
     <Tracker />
-
   </div>
 )
