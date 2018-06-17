@@ -34,7 +34,7 @@ class PartyMemberRow extends React.Component {
           </span>
           <Button className="pull-right" onClick={this.openModal}>Edit</Button>
         </ListGroupItem>
-        <PartyMemberModal character={this.props.character} index={this.props.index} show={this.state.showModal} close={this.closeModal} save={this.props.save} remove={this.props.remove} />
+        <PartyMemberModal character={this.props.character} index={this.props.index} show={this.state.showModal} close={this.closeModal} save={this.props.save} remove={this.props.remove} copy={this.props.copy} />
       </div>
     );
   }

@@ -6,15 +6,15 @@ import PartyMember from '../models/PartyMember'
 import * as _ from 'lodash';
 import * as constants from '../models/constants';
 
-const SortablePartyMember = SortableElement(({value, sortIndex, save, remove}) =>
-  <PartyMemberRow character={value} navigating={sortIndex==0} index={sortIndex} save={save} remove={remove} />
+const SortablePartyMember = SortableElement(({value, sortIndex, save, remove, copy}) =>
+  <PartyMemberRow character={value} navigating={sortIndex==0} index={sortIndex} save={save} remove={remove} copy={copy}/>
 );
 
-const SortablePartyMemberList = SortableContainer(({items, save, remove}) => {
+const SortablePartyMemberList = SortableContainer(({items, save, remove, copy}) => {
   return (
     <ListGroup>
       {items.map((value, index) => (
-        <SortablePartyMember key={`item-${index}`} index={index} value={value} sortIndex={index} save={save} remove={() => remove(index)} />
+        <SortablePartyMember key={`item-${index}`} index={index} value={value} sortIndex={index} save={save} remove={() => remove(index)} copy={() => copy(index)} />
       ))}
     </ListGroup>
   );
@@ -31,12 +31,13 @@ class Tracker extends React.Component {
       addCharacterModalOpen: false,
       newCharacterName: '',
       newCharacterTemplate: 0,
-      characters: [],
+      characters: [new PartyMember('me', 0)],
       day: 1
    };
 
    this.savePartyMember = this.savePartyMember.bind(this);
    this.deletePartyMember = this.deletePartyMember.bind(this);
+   this.copyPartyMember = this.copyPartyMember.bind(this);
   }
 
   onPartySortEnd = ({oldIndex, newIndex}) => {
@@ -60,6 +61,13 @@ class Tracker extends React.Component {
     console.log('deleting ' + index);
     this.setState({
       characters: this.state.characters.slice(0, index).concat(this.state.characters.slice(index + 1))
+    });
+  }
+
+  copyPartyMember(index) {
+    console.log('copying ' + index);
+    this.setState({
+      characters: this.state.characters.slice(0, index).concat(_.cloneDeep(this.state.characters[index])).concat(this.state.characters.slice(index))
     });
   }
 
@@ -96,7 +104,7 @@ class Tracker extends React.Component {
             <Panel.Title componentClass="h3">Your Party</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            <SortablePartyMemberList items={this.state.characters} onSortEnd={this.onPartySortEnd.bind(this)} save={this.savePartyMember} remove={this.deletePartyMember} />
+            <SortablePartyMemberList items={this.state.characters} onSortEnd={this.onPartySortEnd.bind(this)} save={this.savePartyMember} remove={this.deletePartyMember} copy={this.copyPartyMember} />
             <Button onClick={ () => this.setState({addCharacterModalOpen: true}) }>+</Button>
           </Panel.Body>
         </Panel>
