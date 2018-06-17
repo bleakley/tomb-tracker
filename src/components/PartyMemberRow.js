@@ -27,10 +27,12 @@ class PartyMemberRow extends React.Component {
   render() {
     return (
       <div>
-        <ListGroupItem>
-          {this.props.character.name}
-          {this.props.navigating ? ' (navigating)' : null}
-          <Button onClick={this.openModal}>Edit</Button>
+        <ListGroupItem style={{minHeight: '58px'}}>
+          <span>
+            {this.props.character.name}
+            {this.props.navigating ? ' (navigating)' : null}
+          </span>
+          <Button className="pull-right" onClick={this.openModal}>Edit</Button>
         </ListGroupItem>
         <PartyMemberModal character={this.props.character} index={this.props.index} show={this.state.showModal} close={this.closeModal} save={this.props.save} remove={this.props.remove} />
       </div>
