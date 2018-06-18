@@ -38,6 +38,7 @@ class Tracker extends React.Component {
    this.savePartyMember = this.savePartyMember.bind(this);
    this.deletePartyMember = this.deletePartyMember.bind(this);
    this.copyPartyMember = this.copyPartyMember.bind(this);
+   this.onPartySortEnd = this.onPartySortEnd.bind(this);
   }
 
   onPartySortEnd = ({oldIndex, newIndex}) => {
@@ -104,7 +105,7 @@ class Tracker extends React.Component {
             <Panel.Title componentClass="h3">Your Party</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            <SortablePartyMemberList items={this.state.characters} onSortEnd={this.onPartySortEnd.bind(this)} save={this.savePartyMember} remove={this.deletePartyMember} copy={this.copyPartyMember} />
+            <SortablePartyMemberList items={this.state.characters} onSortEnd={this.onPartySortEnd} save={this.savePartyMember} remove={this.deletePartyMember} copy={this.copyPartyMember} />
             <Button onClick={ () => this.setState({addCharacterModalOpen: true}) }>+</Button>
           </Panel.Body>
         </Panel>

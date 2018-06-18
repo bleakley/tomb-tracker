@@ -25,6 +25,19 @@ class PartyMemberModal extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.character !== this.props.character) {
+      this.setState({
+        name: nextProps.character.name,
+        strength: nextProps.character.strength,
+        wisdom: nextProps.character.wisdom,
+        survival: nextProps.character.survival,
+        size: nextProps.character.size,
+        carriedGear: nextProps.character.carriedGear
+      });
+    }
+  }
+
   handleClose() {
     this.props.close();
   }
