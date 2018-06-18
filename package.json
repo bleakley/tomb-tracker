@@ -19,7 +19,8 @@
     "react-hot-loader": "^4.0.0-beta.21",
     "react-router": "^4.2.0",
     "react-sortable-hoc": "^0.8.3",
-    "react-static": "^5.9.7"
+    "react-static": "^5.9.7",
+    "roll": "^1.2.0"
   },
   "devDependencies": {
     "eslint-config-react-tools": "1.x.x",
