@@ -20,7 +20,7 @@ class PartyMember {
     //this.constitutionSave = 0;
     //this.fireResistance = false;
     //this.coldResistance = false;
-    //this.powerfulBuild = false;
+    this.powerfulBuild = false;
 
     this.poisoned = false;
     this.exhaustion = 0;
@@ -93,7 +93,7 @@ class PartyMember {
         this.strength = 8;
         this.wisdom = 8;
 
-        this.survival = -1;
+        this.survival = 1;
         this.perception = -1;
         this.stealth = 6;
 
@@ -303,7 +303,12 @@ class PartyMember {
   }
 
   getCarryingCapacity() {
-    return this.strength * 15 * Math.pow(2, this.size - constants.SIZE_MEDIUM);
+    const capacityMod = [ -1, 0, 0, 1, 2, 3, 3 ];
+    let sizeMod = this.size;
+    if (this.powerfulBuild) {
+      sizeMod += 1;
+    }
+    return this.strength * 15 * Math.pow(2, capacityMod[sizeMod]);
   }
 
 }
